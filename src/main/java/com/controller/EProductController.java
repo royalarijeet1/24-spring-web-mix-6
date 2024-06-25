@@ -23,6 +23,17 @@ public class EProductController {
 	public String newProduct() {// method name
 		return "NewProduct";// jsp name
 	}
+	
+	@GetMapping("/searchproductbyname") // url->browser
+	public String searchProductByName() {// method name
+		return "DeleteProductByName";// jsp name
+	}
+	
+	@PostMapping("/deleteproductbyname") // url->browser
+	public String deleteProductByName(@RequestParam("productName") String productName) {// method name
+		productDao.deleteProductbyName(productName);
+		return "redirect:/products";// jsp name
+	}
 
 	@PostMapping("/saveproduct")
 	public String saveProduct(EProductBean productBean) {
