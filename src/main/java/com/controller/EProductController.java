@@ -8,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bean.EProductBean;
 import com.dao.EProductDao;
+import com.service.FileUploadService;
 
 
 @Controller
@@ -18,6 +20,9 @@ public class EProductController {
 	
 	@Autowired
 	EProductDao productDao;
+	
+	@Autowired
+	FileUploadService fileUploadService; 
 
 	@GetMapping("/newproduct") // url->browser
 	public String newProduct() {// method name
@@ -36,11 +41,11 @@ public class EProductController {
 	}
 
 	@PostMapping("/saveproduct")
-	public String saveProduct(EProductBean productBean) {
+	public String saveProduct(EProductBean productBean, @RequestParam("masterImage") MultipartFile masterImage) {
 		// using bean read data ->productBean
 
 		// validation using XX
-
+		fileUploadService.uploadProductImage(masterImage);
 		// dao insert
 		productDao.addProduct(productBean);
 		return "redirect:/products";// X
@@ -63,5 +68,16 @@ public class EProductController {
 		System.out.println("deleteProduct() =>"+productId);
 		
 		return "redirect:/products";
+	}
+	
+	@GetMapping("/viewproduct")
+	public String viewProduct(@RequestParam("productId") Integer productId, Model model) {
+
+		// id->details->table : products
+		// select * from products where productId = ?
+		EProductBean productBean = productDao.getProductById(productId);
+		model.addAttribute("product", productBean);
+
+		return "ViewProduct";
 	}
 }
