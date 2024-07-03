@@ -10,12 +10,12 @@
 <h2>Ecom Signup</h2>
 
 
-<form action="esignup" method="post">
+<form action="esignup" method="post" enctype="multipart/form-data">
 
 	FirstName : <input type="text" name="firstName"/><br><br> 
 	Email : <input type="text" name="email"/><br><br> 
 	Password : <input type="password" name="password"/><br><br> 
-
+	Profile : <input type="file" name="profilePic"/> <br><Br> 
 	<input type="submit" value="Signup"/>
 </form>
 </body>

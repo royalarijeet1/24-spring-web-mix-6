@@ -23,4 +23,26 @@ public class FileUploadService {
 			e.printStackTrace();
 		}
 	}
+	
+	public void uploadUserImage(MultipartFile masterImage, String email) {
+
+		System.out.println(masterImage.getOriginalFilename());
+
+		String path = "D:\\ROYAL TECHNOSOFT AI\\Spring\\workspace\\24-spring-web-mix-6\\src\\main\\webapp\\images\\profilepic";
+
+		// now you have to create another folder -> email -> copy profile pic
+		File dir = new File(path, email);
+		dir.mkdir();// exists -> false | not exists->true
+
+		// dao insert
+		try {
+			byte b[] = masterImage.getBytes();// copy | extract
+
+			File file = new File(dir, masterImage.getOriginalFilename());// path , name
+			FileUtils.writeByteArrayToFile(file, b);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
