@@ -14,6 +14,11 @@
 	<a href="/newproduct">New Product</a><br></br>
 	
 	<a href="/searchproductbyname">Delete Product By Name</a><br></br>
+	
+	<a href="newproduct">New Product</a><br><br>
+
+	<a href="ehome">Home</a><br><br>
+	
 	<%
 	List<EProductBean> products = (List<EProductBean>) request.getAttribute("products");
 	%>

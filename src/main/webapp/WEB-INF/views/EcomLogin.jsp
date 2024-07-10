@@ -8,5 +8,13 @@
 </head>
 <body>
 <h2>Ecom Login</h2>
+<form action="elogin" method="post">
+	Email : <input type="text" name="email"/><br><br> 
+	Password : <input type="password" name="password"/><br><br> 
+		<input type="submit" value="Signup"/>
+	
+</form>
+<br>
+${error}
 </body>
 </html>
