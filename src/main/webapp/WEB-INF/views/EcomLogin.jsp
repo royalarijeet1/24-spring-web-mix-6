@@ -21,7 +21,7 @@
 				<div class="form-group">
 					Password : <input type="password" name="password" class="form-control"/><br><br> 
 				</div>
-				<input type="submit" value="Signup" class="btn btn-success"/>
+				<input type="submit" value="Login" class="btn btn-success"/>
 			</form>
 			<br>
 			<span class="text-danger">${error}</span>

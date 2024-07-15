@@ -14,6 +14,6 @@
 	<img alt="" src="${user.profilePicPath}" height="100px" width="100px"/>
 	<Br>
 
-	<a href="products">Products </a>
+	<a href="userproducts">Products </a>
 </body>
 </html>
