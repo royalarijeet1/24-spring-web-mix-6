@@ -45,9 +45,12 @@ public class EProductController {
 		// using bean read data ->productBean
 
 		// validation using XX
+		
 		fileUploadService.uploadProductImage(masterImage);
+		productBean.setProductImagePath("/images/products/" + masterImage.getOriginalFilename());
 		// dao insert
 		productDao.addProduct(productBean);
+		System.out.println(productBean.getProductImagePath());
 		return "redirect:/products";// X
 	}
 	
@@ -73,6 +76,7 @@ public class EProductController {
 	@GetMapping("/viewproduct")
 	public String viewProduct(@RequestParam("productId") Integer productId, Model model) {
 
+		System.out.println("view");
 		// id->details->table : products
 		// select * from products where productId = ?
 		EProductBean productBean = productDao.getProductById(productId);

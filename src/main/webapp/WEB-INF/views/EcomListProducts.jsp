@@ -15,8 +15,6 @@
 	
 	<a href="/searchproductbyname">Delete Product By Name</a><br></br>
 	
-	<a href="newproduct">New Product</a><br><br>
-
 	<a href="ehome">Home</a><br><br>
 	
 	<%

@@ -12,16 +12,17 @@ public class FileUploadService {
 		System.out.println(masterImage.getOriginalFilename());
 
 		String path = "D:\\ROYAL TECHNOSOFT AI\\Spring\\workspace\\24-spring-web-mix-6\\src\\main\\webapp\\images\\products";
+//		String path = "//images//products";
 		// dao insert
 		try {
 			byte b[] = masterImage.getBytes();// copy | extract
 
 			File file = new File(path, masterImage.getOriginalFilename());// path , name
 			FileUtils.writeByteArrayToFile(file, b);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public void uploadUserImage(MultipartFile masterImage, String email) {

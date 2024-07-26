@@ -15,8 +15,8 @@ public class EProductDao {
 	JdbcTemplate stmt;// used to execute sql query into databse
 
 	public void addProduct(EProductBean productBean) {
-		stmt.update("insert into products (productName,category,price,qty) values (?,?,?,?) ",
-				productBean.getProductName(), productBean.getCategory(), productBean.getPrice(), productBean.getQty());
+		stmt.update("insert into products (productName,category,price,qty, productImagePath) values (?,?,?,?,?) ",
+				productBean.getProductName(), productBean.getCategory(), productBean.getPrice(), productBean.getQty(),productBean.getProductImagePath());
 		
 	}
 	
