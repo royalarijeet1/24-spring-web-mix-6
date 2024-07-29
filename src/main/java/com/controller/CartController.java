@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import com.bean.ECartBean;
 import com.bean.EProductBean;
 import com.bean.EUserBean;
+import com.bean.ProductCartBean;
 import com.dao.CartDao;
 
 import jakarta.servlet.http.HttpSession;
@@ -43,17 +44,17 @@ public class CartController {
 	public String myCart(HttpSession session,Model model) {
 		EUserBean userBean = (EUserBean) session.getAttribute("user");
 		Integer userId = userBean.getUserId();
-		List<EProductBean> products = cartDao.myCart(userId);
+		List<ProductCartBean> products = cartDao.myCart(userId);
 		model.addAttribute("products",products);
 		return "MyCart";
 	}
 	
-	@GetMapping("/deletecart")
-	public String deleteCart(@RequestParam("productId") Integer productId) {
+	@GetMapping("/removecartitem")
+	public String deleteCart(@RequestParam("cartId") Integer cartId) {
 		
-		cartDao.deletecartbyId(productId);
+		cartDao.deletecartbyId(cartId);
 		
-		System.out.println("deleteCart() =>"+productId);
+		System.out.println("deleteCart() =>"+cartId);
 		
 		return "redirect:/mycart";
 	}

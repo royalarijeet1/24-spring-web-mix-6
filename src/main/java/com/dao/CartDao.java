@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bean.ECartBean;
 import com.bean.EProductBean;
+import com.bean.ProductCartBean;
 
 @Repository
 public class CartDao {
@@ -18,7 +19,6 @@ public class CartDao {
 
 	public void addToCart(ECartBean cartBean) {
 		ECartBean cart = null;
-
 		try {
 			cart = stmt.queryForObject("select * from cart where productId = ? and userId = ? ",
 					new BeanPropertyRowMapper<>(ECartBean.class),
@@ -36,17 +36,37 @@ public class CartDao {
 		}
 	}
 
-	public List<EProductBean> myCart(Integer userId) {
+	public List<ProductCartBean> myCart(Integer userId) {
 		// select * from products join cart using (productId) where userId= 1;
 
-		List<EProductBean> products = stmt.query(" select * from products join cart using (productId) where userId= ?",
-				new BeanPropertyRowMapper<>(EProductBean.class), new Object[] { userId });
+		List<ProductCartBean> products = stmt.query("select c.*,p.price,p.productName,p.productImagePath from products p join cart c using (productId) where userId= ?",
+				new BeanPropertyRowMapper<>(ProductCartBean.class), new Object[] { userId });
 		return products;
 	}
 
-	public void deletecartbyId(Integer productId) {
+	public void deletecartbyId(Integer cartId) {
 		// TODO Auto-generated method stub
-		stmt.update("delete from cart  where  productId=?",productId);
+		
+		
+		ECartBean cart=null;
+		
+		try {
+			cart= stmt.queryForObject("select * from cart where cartId=?", 
+					new BeanPropertyRowMapper<>(ECartBean.class), 
+					new Object[] {cartId});
+		}	
+		catch(Exception e)
+		{
+			
+		}
+		
+
+		if (cart.getQty() == 1) {
+			stmt.update("delete from cart  where   cartId=?",cartId);
+			
+		} else {
+			stmt.update("update cart set qty = ? where cartId=?", cart.getQty() - 1,cartId);
+		}
 	}
 
 

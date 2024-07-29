@@ -1,4 +1,4 @@
-<%@page import="com.bean.EProductBean"%>
+<%@page import="com.bean.ProductCartBean"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -15,33 +15,37 @@
  
 
 	<%
-	List<EProductBean> products = (List<EProductBean>) request.getAttribute("products");
+	List<ProductCartBean> products = (List<ProductCartBean>) request.getAttribute("products");
 	Float price = 0.0f;
 	%>
 
 	<table border="1">
 		<tr>
+			<th>CartId</th>
 			<th>ProductId</th>
 			<th>ProductName</th>
 			<th>Image</th>
 			<th>Price</th>
 			<th>Quantity</th>
+			<th>TotalPrice</th>
 			<th>Action</th>
 		</tr>
 		<%
-		for (EProductBean p : products) {
+		for (ProductCartBean p : products) {
 			out.print("<tr>");
+			out.print("<td>" + p.getCartId() + "</td>");
 			out.print("<td>" + p.getProductId() + "</td><td>" + p.getProductName() + "</td>");
 			out.print("<td><img height='100px' width='100px' src='"+p.getProductImagePath()+"'/></td>");
-			out.print("<td>"+p.getPrice()+"</td>");
+			out.print("<td>"+p.getPrice()+"</td>"); 
 			out.print("<td>"+p.getQty()+"</td>");
+			out.print("<td>" + p.getQty()*p.getPrice() + "</td>");
 
 			//out.print("<td><a href='/deletecart?productId="+p.getProductId()+"&userId=${userId}'>Delete</a></td>");
-			out.print("<td><a href='/deletecart?productId="+p.getProductId()+"'>Delete</a></td>");
+			out.print("<td><a href='removecartitem?cartId="+p.getCartId()+"'>Remove</a></td>");
 			
 			out.print("</tr>");
 
-			price = price + p.getPrice(); 
+			price = price + (p.getPrice()*p.getQty());
 		}
 		%>
 	
@@ -52,6 +56,6 @@
 		Total Price <%=price %>
 	 
 	 	<br><Br>
-	 	<a href="logout">Checkout</a>
+	 	<a href="checkout">Checkout</a>
 </body>
 </html>
